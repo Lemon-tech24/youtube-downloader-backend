@@ -3,7 +3,9 @@ const app = express();
 const yts = require('yt-search');
 const ytdl = require('ytdl-core');
 const fs = require('fs');
+const cors = require('cors')
 
+app.use(cors())
 app.use(express.json());
 
 app.get('/api', (req, res) => {
