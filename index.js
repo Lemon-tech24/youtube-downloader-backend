@@ -30,8 +30,8 @@ app.post('/api/request', async (req, res) => {
     res.status(500).send({ error: 'An error occurred while searching for videos.' });
   }
 });
-
-app.post('/api/download', async (req, res) => {
+app.options('/api/download', cors())
+app.post('/api/download', cors(),async (req, res) => {
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
@@ -47,8 +47,8 @@ app.post('/api/download', async (req, res) => {
 });
 
 
-
-app.post('/api/download/audio',async(req,res)=>{
+app.options('/api/download/audio', cors());
+app.post('/api/download/audio',cors(),async(req,res)=>{
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
