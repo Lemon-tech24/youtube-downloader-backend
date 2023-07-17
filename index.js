@@ -12,7 +12,7 @@ app.use(
 );
 
 app.get('/', (_req, res) => {
-  res.send('/api running');
+  res.send('/api runninga');
 });
 
 app.post('/api/request', async (req, res) => {
