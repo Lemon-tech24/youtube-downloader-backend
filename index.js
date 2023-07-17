@@ -5,7 +5,7 @@ const ytdl = require('ytdl-core');
 const fs = require('fs');
 const cors = require('cors')
 
-app.use(cors({origin:'*'}))
+app.use(cors({origin:'https://youtube-downloader-frontend-olive.vercel.app'}))
 app.use(express.json());
 
 app.get('/api', (req, res) => {
