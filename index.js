@@ -52,7 +52,7 @@ app.post('/api/download',async (req, res) => {
 
 
 
-app.post('/api/download/audio',async(req,res)=>{
+app.post('/api/download/audio',cors(),async(req,res)=>{
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
