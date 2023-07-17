@@ -5,7 +5,7 @@ const ytdl = require('ytdl-core');
 const fs = require('fs');
 const cors = require('cors')
 
-app.use(cors({origin:'https://youtube-downloader-frontend-olive.vercel.app'}))
+app.use(cors({origin:'*'}))
 app.use(express.json());
 
 app.get('/api', (req, res) => {
@@ -30,21 +30,18 @@ app.post('/api/request', async (req, res) => {
     res.status(500).send({ error: 'An error occurred while searching for videos.' });
   }
 });
-
-app.post('/api/download', cors(), async (req, res) => {
+app.post('/api/download', async (req, res) => {
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
-    const format = ytdl.chooseFormat(formats, { filter: 'audioandvideo', quality: 'highestvideo' });
-
-    res.setHeader('Content-Disposition', `attachment; filename="${videoDetails.title}.mp4"`);
-    res.setHeader('Content-Type', 'video/mp4');
-
+    const format = ytdl.chooseFormat(formats, { filter: 'audioandvideo', quality:'highestvideo' });
+    res.attachment(`${videoDetails.title}.mp4`);
     ytdl(`http://www.youtube.com/watch?v=${videoId}`, { format }).pipe(res);
   } catch (error) {
     console.error('Error downloading video:', error);
     res.status(500).send({ error: 'Error downloading the video.' });
   }
+
 });
 
 
