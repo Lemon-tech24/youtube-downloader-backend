@@ -7,7 +7,6 @@ const cors = require('cors')
 
 app.use(cors({
   origin:'*',
-  methods:['POST'],
 }))
 
 app.use(express.json());
