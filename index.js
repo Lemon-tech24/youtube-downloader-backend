@@ -31,12 +31,11 @@ app.post('/api/request', async (req, res) => {
   }
 });
 
-app.post('/api/download', cors(),async (req, res) => {
+app.post('/api/download', cors(), async (req, res) => {
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
     const format = ytdl.chooseFormat(formats, { filter: 'audioandvideo', quality:'highestvideo' });
-    res.attachment(`${videoDetails.title}.mp4`);
     ytdl(`http://www.youtube.com/watch?v=${videoId}`, { format }).pipe(res);
   } catch (error) {
     console.error('Error downloading video:', error);
