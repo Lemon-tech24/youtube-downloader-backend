@@ -15,7 +15,7 @@ app.get('/', (_req, res) => {
   res.send('/api running');
 });
 
-app.post('/request', async (req, res) => {
+app.post('http://encouraging-pink-wig.cyclic.app/api/request', async (req, res) => {
   try {
     const { search } = req.body;
     const r = await yts(search);
@@ -36,7 +36,7 @@ app.post('/request', async (req, res) => {
   }
 });
 
-app.post('/download', async (req, res) => {
+app.post('http://encouraging-pink-wig.cyclic.app/api/download', async (req, res) => {
   try {
     const { videoId } = req.body;
     const { formats } = await ytdl.getInfo(
@@ -54,7 +54,7 @@ app.post('/download', async (req, res) => {
   }
 });
 
-app.post('/download/audio', async (req, res) => {
+app.post('http://encouraging-pink-wig.cyclic.app/api/download/audio', async (req, res) => {
   try {
     const { videoId } = req.body;
     const { formats } = await ytdl.getInfo(
