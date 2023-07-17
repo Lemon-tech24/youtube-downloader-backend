@@ -34,15 +34,13 @@ app.post('/api/download', async (req, res) => {
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
-    const format = ytdl.chooseFormat(formats, { filter: 'audioandvideo', quality:'highestvideo' });
-    res.attachment(`${videoDetails.title}.mp4`);
+    const format = ytdl.chooseFormat(formats, { filter: 'audioandvideo', quality: 'highestvideo' });
+    res.setHeader('Content-Type', 'application/octet-stream');
     ytdl(`http://www.youtube.com/watch?v=${videoId}`, { format }).pipe(res);
-    res.set("Access-Control-Allow-Origin", "*");
   } catch (error) {
     console.error('Error downloading video:', error);
     res.status(500).send({ error: 'Error downloading the video.' });
   }
-
 });
 
 
