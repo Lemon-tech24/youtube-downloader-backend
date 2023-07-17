@@ -35,15 +35,18 @@ app.post('/api/download', cors(), async (req, res) => {
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
-    const format = ytdl.chooseFormat(formats, { filter: 'audioandvideo', quality:'highestvideo' });
+    const format = ytdl.chooseFormat(formats, { filter: 'audioandvideo', quality: 'highestvideo' });
+
+    res.setHeader('Content-Disposition', `attachment; filename="${videoDetails.title}.mp4"`);
+    res.setHeader('Content-Type', format.mimeType);
+
     ytdl(`http://www.youtube.com/watch?v=${videoId}`, { format }).pipe(res);
   } catch (error) {
     console.error('Error downloading video:', error);
     res.status(500).send({ error: 'Error downloading the video.' });
   }
-
-  
 });
+
 
 
 
