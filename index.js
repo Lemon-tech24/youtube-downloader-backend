@@ -15,7 +15,7 @@ app.get('/api', (req, res) => {
   res.send('/api running');
 });
 
-app.post('/api/request', async (req, res) => {
+app.post('/api/request',cors(), async (req, res) => {
   try {
     const { search } = req.body;
     const r = await yts(search);
@@ -34,7 +34,7 @@ app.post('/api/request', async (req, res) => {
   }
 });
 
-app.post('/api/download', async (req, res) => {
+app.post('/api/download',cors(),async (req, res) => {
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
@@ -51,7 +51,7 @@ app.post('/api/download', async (req, res) => {
 
 
 
-app.post('/api/download/audio',async(req,res)=>{
+app.post('/api/download/audio',cors(),async(req,res)=>{
   try {
     const { videoId } = req.body;
     const { formats, videoDetails } = await ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`);
