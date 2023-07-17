@@ -5,7 +5,7 @@ const ytdl = require('ytdl-core');
 const fs = require('fs');
 const cors = require('cors')
 
-app.use(cors({origin:'*'}))
+app.use(cors())
 app.use(express.json());
 
 app.get('/api', (req, res) => {
@@ -30,7 +30,7 @@ app.post('/api/request', async (req, res) => {
     res.status(500).send({ error: 'An error occurred while searching for videos.' });
   }
 });
-app.options('/api/download', cors())
+
 app.post('/api/download', cors(),async (req, res) => {
   try {
     const { videoId } = req.body;
@@ -47,7 +47,7 @@ app.post('/api/download', cors(),async (req, res) => {
 });
 
 
-app.options('/api/download/audio', cors());
+
 app.post('/api/download/audio',cors(),async(req,res)=>{
   try {
     const { videoId } = req.body;
