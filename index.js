@@ -15,6 +15,13 @@ app.get('/', (_req, res) => {
   res.send('/api runninga');
 });
 
+
+app.use(
+  cors({
+    origin: '*',
+  }),
+  express.json()
+);
 app.post('/api/request', async (req, res) => {
   try {
     const { search } = req.body;
@@ -36,6 +43,12 @@ app.post('/api/request', async (req, res) => {
   }
 });
 
+app.use(
+  cors({
+    origin: '*',
+  }),
+  express.json()
+);
 app.post('/api/download', async (req, res) => {
   try {
     const { videoId } = req.body;
@@ -54,6 +67,12 @@ app.post('/api/download', async (req, res) => {
   }
 });
 
+app.use(
+  cors({
+    origin: '*',
+  }),
+  express.json()
+);
 app.post('/api/download/audio', async (req, res) => {
   try {
     const { videoId } = req.body;
@@ -72,6 +91,12 @@ app.post('/api/download/audio', async (req, res) => {
   }
 });
 
+app.use(
+  cors({
+    origin: '*',
+  }),
+  express.json()
+);
 app.listen(5000, () => {
   console.log('Server running on port 3000');
 });
